@@ -6,8 +6,9 @@ const blog = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		// Transform string to Date object
+		// Transform string to Date object
 		date: z.coerce.date(),
-		published: z.union([z.string(), z.boolean()]).optional(), // Handle "No" string or boolean
+		published: z.boolean().optional().default(true),
         updatedDate: z.coerce.date().optional(),
         heroImage: z.string().optional(),
 	}),
@@ -24,6 +25,7 @@ const projects = defineCollection({
         webHost: z.string().optional(),
         selfHost: z.string().optional(),
         dockerLink: z.string().optional(),
+        published: z.boolean().optional().default(true),
     }),
 });
 

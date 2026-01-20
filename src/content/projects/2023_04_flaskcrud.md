@@ -6,4 +6,5 @@ tech: Python, Flask, Bootstrap, Postgres, Docker
 codeLink: https://github.com/buildwithdan/flask-crud
 selfHost: https://crud.buildwithdan.com/
 dockerLink: https://hub.docker.com/r/buildwithdan/flask-crud
+published: true
 ---

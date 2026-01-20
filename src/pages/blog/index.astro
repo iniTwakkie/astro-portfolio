@@ -4,7 +4,7 @@ import BlogCard from '../../components/BlogCard.astro';
 import { getCollection } from 'astro:content';
 
 const posts = (await getCollection('blog'))
-    .filter(post => post.data.published !== 'No')
+    .filter(post => post.data.published !== false)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
