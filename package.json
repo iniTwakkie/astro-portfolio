@@ -9,7 +9,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.11"
+    "astro": "^5.16.11",
+    "mermaid": "^11.12.2"
   },
   "devDependencies": {
     "@astrojs/tailwind": "^6.0.2",
