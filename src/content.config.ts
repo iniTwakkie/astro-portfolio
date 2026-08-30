@@ -1,21 +1,19 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const blog = defineCollection({
-	type: 'content',
-	// Type-check frontmatter using a schema
-	schema: z.object({
-		title: z.string(),
-		// Transform string to Date object
-		// Transform string to Date object
-		date: z.coerce.date(),
-		published: z.boolean().optional().default(true),
+    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
+    schema: z.object({
+        title: z.string(),
+        date: z.coerce.date(),
+        published: z.boolean().optional().default(true),
         updatedDate: z.coerce.date().optional(),
         heroImage: z.string().optional(),
-	}),
+    }),
 });
 
 const projects = defineCollection({
-    type: 'content',
+    loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/projects' }),
     schema: z.object({
         title: z.string(),
         shortDesc: z.string(),

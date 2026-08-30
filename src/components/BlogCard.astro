@@ -9,7 +9,7 @@ const { post } = Astro.props;
 ---
 
 <li class="group">
-    <a href={`/blog/${post.slug}/`} class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
+    <a href={`/blog/${post.id.toLowerCase()}/`} class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 sm:gap-4">
         <span class="text-zinc-900 group-hover:underline underline-offset-4 decoration-zinc-400">
             {post.data.title}
         </span>
