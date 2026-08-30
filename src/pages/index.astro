@@ -1,9 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+const featuredProjects = (await getCollection('projects'))
+    .filter((project) => project.data.published !== false && project.data.featured)
+    .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 ---
 
 <Layout>
-    <section class="mb-16">
+    <section class="mb-14">
         <h1 class="text-2xl font-bold tracking-tight text-black mb-6">
             About me <span class="inline-block">👋</span>
         </h1>
@@ -17,23 +23,26 @@ import Layout from '../layouts/Layout.astro';
             <p class="mb-8">
                 Outside of work, I’m a husband, dad-to-be, keen DIYer and love to "braai".
             </p>
-            
-            <p class="mb-4 font-bold text-black">Some of my writing and projects include:</p>
-            <ul class="list-disc pl-5 mb-8 space-y-2 text-zinc-800">
-                <li>Building <strong class="text-black font-semibold">CardCode</strong> (credit card coding + receipts, done properly)</li>
-                <li>Finance analytics systems (Xero → warehouse → Power BI)</li>
-                <li>Homelab + automation (Proxmox, Docker, Tailscale, Cloudflare)</li>
-                <li>Practical guides for dashboards, forecasting, and data models</li>
-                <li>Product thinking for finance teams</li>
-                <li>Garden office / workshop building project</li>
-            </ul>
 
             <p class="mb-6">
                 You can <a href="/blog" class="text-black border-b border-zinc-400 hover:border-black transition-colors">read my work</a>, 
                 <a href="/projects" class="text-black border-b border-zinc-400 hover:border-black transition-colors">view my projects</a>, 
                 or connect with me online. I also advise companies on finance ops, analytics, and automation. <a href="mailto:danie@danienell.com" class="text-black border-b border-zinc-400 hover:border-black transition-colors">Reach out</a> if you’d like to work together.
             </p>
+
+            <a href="/Danie-Nell-Resume.pdf" download class="not-prose inline-flex items-center rounded-lg bg-black px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-700 transition-colors">
+                Download my résumé <span class="ml-2" aria-hidden="true">↓</span>
+            </a>
         </div>
     </section>
 
+    <section aria-labelledby="featured-projects-heading">
+        <div class="mb-4 flex items-baseline justify-between gap-4">
+            <h2 id="featured-projects-heading" class="text-xl font-bold tracking-tight text-black">Featured projects</h2>
+            <a href="/projects" class="text-sm font-medium text-zinc-500 hover:text-black transition-colors">View all →</a>
+        </div>
+        <div class="flex flex-col gap-2">
+            {featuredProjects.map((project) => <ProjectCard project={project} />)}
+        </div>
+    </section>
 </Layout>

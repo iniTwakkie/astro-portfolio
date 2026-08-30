@@ -25,6 +25,8 @@ const projects = defineCollection({
         webHost: z.string().optional(),
         selfHost: z.string().optional(),
         dockerLink: z.string().optional(),
+        status: z.string().optional(),
+        featured: z.boolean().optional().default(false),
         published: z.boolean().optional().default(true),
     }),
 });
