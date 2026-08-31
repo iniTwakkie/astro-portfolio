@@ -5,111 +5,37 @@ date: 2023-04-03
 published: true
 ---
 
-Working from home (and building side projects) has pushed me deeper into running my own homelab setup.
+Working from home (and building side projects) pushed me into running my own homelab. For me it's not about having servers for the sake of it — it's reliable compute, storage, and remote access that I control, without complicating day-to-day use.
 
-For me, a homelab isn’t just about “having servers” — it’s about having reliable compute, storage, and remote access that I control, while still keeping things simple for day-to-day use.
+## Approach
 
-This post is an updated overview of my current setup: the hardware I use, how it’s laid out, and the thinking behind it.
+- Small, low-power compute nodes instead of one big server
+- Easy remote access for me and family (Tailscale + exit nodes)
+- NAS for large media and backups
+- Cloud-first for everyday documents and email
+- A small public layer for internet-facing services
 
----
-
-## My homelab approach (simple but powerful)
-
-My design is built around a few key ideas:
-
-- **Small low-power compute nodes** instead of one massive server
-- **Easy remote access** for me and family (secure VPN + exit nodes)
-- **NAS storage for large media + backups**
-- **Cloud-first for everyday documents and email**
-- **A small public layer** for internet-facing services
-
----
-
-## Compute layer (4 nodes)
+## Compute: 4 nodes
 
 ![Dell OptiPlex Micro Stack](/images/dell-micro-stack.jpg)
 
-My main compute layer is made up of **4 x Dell OptiPlex 7040 Micro nodes**:
+Four Dell OptiPlex 7040 Micro nodes (i7-6700T, 32GB RAM) — small, quiet, low power, and reliable.
 
-- **Intel i7-6700T**
-- **32GB RAM**
-- Small, quiet, low power, and extremely reliable
+- 2 at home: one runs Linux workloads, one runs Windows workloads.
+- 2 at my parents and brother's place: lets them run home services if they want, and gives me reliable Tailscale exit nodes.
 
-### What each node does
+## Storage: 2 NAS devices
 
-I run these as “mini compute nodes” spread across my world + family needs:
+Daily documents and email stay in Google Drive. The NAS layer handles large storage, owned media, and Plex. One NAS at home, one at my parents.
 
-- **2 nodes at home**
-  - One is focused on my **Linux workloads**
-  - One is focused on **Windows workloads**
-- **2 nodes used for family (parents + brother)**
-  - Gives them an easy way to run home services if they ever want to
-  - Also gives me a reliable **VPN exit node option using Tailscale**
-  - Great for things like Homebridge / Home Assistant style setups
+## Public-facing: 2 small VMs
 
----
+Two small VMs handle anything that needs to be reachable from the internet, keeping my home network separated from the public side.
 
-## Storage layer (2 NAS devices)
+## Virtualisation
 
-![Synology NAS Setup](/images/synology-nas.jpg)
+My home Linux node runs two VMs: one for Docker containers and services, and one dedicated coding environment. Keeps things separated and easy to rebuild.
 
-I run **2 NAS nodes**:
+## Why it works
 
-- **1 NAS at home** for my storage needs
-- **1 NAS at my parents** for their storage needs
-
-I still believe in keeping storage simple:
-
-### Google Drive for daily life
-For things like:
-- Email
-- documents
-- general files
-- everyday storage
-
-I still use **Google Drive** — it’s simple, reliable, and works extremely well.
-
-### NAS for large owned storage
-My NAS layer is mainly used for:
-- **large storage**
-- **owned media**
-- **streaming via Plex**
-
-This keeps my day-to-day life in the cloud, while still giving me control of bigger data locally.
-
----
-
-## Public-facing layer (2 small VMs)
-
-I also run **2 small VMs** that act as my public-facing nodes.
-
-These are used for services that need to be reachable from the internet, while keeping my home network safer and separated from the public side.
-
----
-
-## Virtualization layout (home Linux node)
-
-My home **Linux compute node** hosts 2 dedicated virtual machines:
-
-- **VM #1: Docker VM**
-  - runs my Docker containers and services
-- **VM #2: Coding VM**
-  - dedicated coding environment
-  - clean and isolated for development work
-
-This setup keeps things separated and easier to manage (and easier to rebuild if needed).
-
----
-
-## Why I like this setup
-
-This approach gives me:
-
-✅ Reliable compute without needing huge enterprise hardware  
-✅ Flexible growth (I can add nodes easily)  
-✅ Great remote access via Tailscale  
-✅ Good separation between home, family, and public services  
-✅ Local NAS storage for media + bigger data  
-✅ Cloud simplicity for everyday documents  
-
----
+Reliable compute without enterprise hardware, easy to grow, solid remote access, and a clean split between home, family, and public services.

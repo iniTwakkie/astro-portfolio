@@ -6,71 +6,26 @@ tags: ["xero", "personal finance", "household budgeting", "cashflow", "tracking"
 published: true
 ---
 
-<div class="grid grid-cols-2 gap-4 mb-8 items-center">
-  <div class="bg-gray-50 rounded-lg p-6 flex items-center justify-center h-full shadow-sm">
-    <img src="/images/xero-logo.svg" alt="Xero Logo" class="max-h-36 w-auto" />
-  </div>
-  <img src="/images/xero-personal-finance-dashboard.png" alt="Xero Personal Finance Dashboard" class="rounded-lg shadow-sm" />
-</div>
+If you and your partner share money, you've probably got two bank apps, a few cards, and a spreadsheet you update when you feel guilty.
 
-If you and your wife share money, you’ve probably lived this life:
+The fix: run your household like a tiny business. [Xero Simple](https://www.xero.com/uk/pricing-plans/simple/) connects your accounts, pulls transactions in automatically, and once a month you just categorise them. That gives you:
 
-- **Two bank apps**
-- **A few cards**
-- **A spreadsheet you update when you feel guilty**
-- And the classic: *“Wait… did we already pay that?”*
+- a proper profit and loss (where the money actually went)
+- a balance sheet (what you own vs what you owe)
+- a real view of cashflow
 
-Here’s the clever hack: **run your household like a tiny business** (minus the stress).  
-**[Xero Simple](https://www.xero.com/uk/pricing-plans/simple/)** gives you a clean system to track everything, automatically.
+![Xero Personal Finance Dashboard](/images/xero-personal-finance-dashboard.png)
 
----
+For about £7 + VAT a month, it's basically a full finance dashboard for your home.
 
-### Why it works so well
+A few things worth knowing before you sign up:
 
-<img src="/images/xero-automation-flow.png" alt="Xero Automation Flow" class="w-2/3 mx-auto" />
-Once your **bank accounts + cards are connected**, Xero pulls in transactions automatically.  
-Then once a month you just **reconcile** (categorise) them… and suddenly you’ve got:
+- **Unlimited bank feeds**, so every account and card syncs.
+- **10 sales invoices a month** — enough for side hustles.
+- **Tracking categories** are handy for tagging spending like holidays or renovations without cluttering your main categories.
+- **You can't create bills** on Simple, but for household finances you probably won't miss that.
 
-✅ A proper **Profit & Loss (PnL)** (aka where the money *actually* went)  
-✅ A **Balance Sheet** (aka what you own vs what you owe)  
-✅ A real view of cashflow without guessing  
-
-It turns “money chats” into “money clarity”.
-
----
-
-### What you get with Xero Simple (and why it’s perfect for home use)
-- **Unlimited bank feeds** (your main accounts, savings, joint cards — all synced)
-- **10 sales invoices/month** (perfect for side hustles or odd jobs)
-- **Receipt & document uploads** (PDFs/images attached to transactions)
-- **Manual journals** (for clean adjustments if you’re detail-oriented)
-- **Fixed assets module** (track big purchases properly if you want)
-- **Tracking categories 1 & 2** (this is the secret weapon)
-
-> I use tracking to tag spending like **renovations**, **building projects**, **holidays**, and anything else I want to measure without messing up my main categories.
-
-And no, you **can’t create bills** on Simple — but for household finances… honestly? You don’t need to.
-
----
-
-### Quick note: how to actually get Xero Simple
-This plan is typically only available via **[Xero Partners](https://www.xero.com/uk/advisors/)** (for example accountants or bookkeepers on a Xero partner subscription).
-
-So the easiest route is:  
-✅ Speak to **any accountant/bookkeeper** who is a Xero Partner — they should be able to help you get set up.
-
-If you’re stuck, **reach out to me** and I can help you get it going.
-
----
-
-### The best part
-For **~£7 + VAT per month**, it’s basically a **full finance dashboard** for your home.
-
-Less chaos.  
-More control.  
-And fewer “what happened to our money?” moments.
-
-If you want one tool that makes joint finances feel simple, *this is it.*
+The plan is normally only available through Xero Partners (accountants and bookkeepers). Easiest route is to ask any Xero Partner to set you up — and if you get stuck, reach out and I'll help you get it going.
 
 ```mermaid
 flowchart LR
