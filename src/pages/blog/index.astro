@@ -6,16 +6,77 @@ import { getCollection } from 'astro:content';
 const posts = (await getCollection('blog'))
     .filter(post => post.data.published !== false)
     .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const searchIndex = posts.map((post) => ({
+    title: post.data.title,
+    description: post.data.description ?? '',
+    body: post.body ?? '',
+}));
 ---
 
 <Layout title="Blog" description="Thoughts and tutorials.">
 	<section>
         <h1 class="font-bold text-2xl mb-2 tracking-tight text-black">Blog</h1>
         <p class="text-zinc-500 mb-8">Thoughts and tutorials on finance, data, and building things.</p>
-		<ul class="flex flex-col">
-			{posts.map((post) => (
-				<BlogCard post={post} />
+
+        <div class="relative mb-8">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" aria-hidden="true">
+                <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11ZM2 9a7 7 0 1 1 12.452 4.391l3.328 3.329a.75.75 0 1 1-1.06 1.06l-3.329-3.328A7 7 0 0 1 2 9Z" clip-rule="evenodd" />
+            </svg>
+            <input
+                id="blog-search"
+                type="search"
+                placeholder="Search posts..."
+                autocomplete="off"
+                class="w-full rounded-lg border border-zinc-200 bg-white py-2 pl-9 pr-3 text-sm text-zinc-900 placeholder-zinc-400 shadow-sm focus:border-zinc-400 focus:outline-none"
+            />
+        </div>
+        <p id="blog-results-count" class="text-xs text-zinc-400 mb-4" hidden></p>
+
+		<ul id="blog-list" class="flex flex-col">
+			{posts.map((post, i) => (
+				<BlogCard post={post} searchIndex={i} />
 			))}
 		</ul>
+        <p id="blog-no-results" class="text-sm text-zinc-500 py-4" hidden>No posts match your search.</p>
 	</section>
 </Layout>
+
+<script type="application/json" id="blog-search-index" set:html={JSON.stringify(searchIndex)} />
+
+<script>
+    const input = document.getElementById('blog-search');
+    const items = [...document.querySelectorAll('#blog-list > li')];
+    const index = JSON.parse(document.getElementById('blog-search-index').textContent);
+    const count = document.getElementById('blog-results-count');
+    const noResults = document.getElementById('blog-no-results');
+
+    function matches(query, entry) {
+        const terms = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
+        if (terms.length === 0) return true;
+        const haystack = `${entry.title} ${entry.description} ${entry.body}`.toLowerCase();
+        return terms.every((term) => haystack.includes(term));
+    }
+
+    function applySearch() {
+        const query = input.value;
+        let visible = 0;
+        items.forEach((item, i) => {
+            const show = matches(query, index[i]);
+            item.hidden = !show;
+            if (show) visible++;
+        });
+        noResults.hidden = visible !== 0;
+        count.hidden = query.trim() === '' || visible === items.length;
+        count.textContent = `${visible} of ${items.length} posts`;
+    }
+
+    function initSearch() {
+        if (!input || !items.length || !index.length) return;
+        applySearch();
+        input.addEventListener('input', applySearch);
+    }
+
+    document.addEventListener('astro:page-load', initSearch);
+    initSearch();
+</script>

@@ -3,13 +3,14 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
 	post: CollectionEntry<'blog'>;
+	searchIndex?: number;
 }
 
-const { post } = Astro.props;
+const { post, searchIndex } = Astro.props;
 const url = `/blog/${post.id.toLowerCase()}/`;
 ---
 
-<li class="group py-4 border-b border-zinc-100 last:border-0">
+<li class="group py-4 border-b border-zinc-100 last:border-0" {...(searchIndex !== undefined ? { 'data-search-index': searchIndex } : {})}>
     <a href={url} class="block">
         <span class="flex items-baseline justify-between gap-4">
             <span class="text-zinc-900 font-medium group-hover:text-black group-hover:underline underline-offset-4 decoration-zinc-400 transition-colors">
