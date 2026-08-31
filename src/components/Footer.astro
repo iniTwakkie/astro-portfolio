@@ -3,14 +3,16 @@ import site from '../data/site.json';
 const today = new Date();
 ---
 
-<footer class="w-full mt-auto py-8 text-sm text-gray-500">
+<footer class="w-full mt-auto py-8 text-sm text-zinc-500">
     <div class="max-w-2xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
         <div>
             &copy; {today.getFullYear()} {site.name}
         </div>
-        <div class="flex gap-4">
-            <a href={site.linkedin} target="_blank" class="hover:text-gray-300 transition-colors">LinkedIn</a>
-            <a href={site.github} target="_blank" class="hover:text-gray-300 transition-colors">GitHub</a>
+        <div class="flex gap-5">
+            <a href={`mailto:${site.email}`} class="hover:text-black transition-colors">Email</a>
+            <a href="/rss.xml" class="hover:text-black transition-colors">RSS</a>
+            <a href={site.linkedin} target="_blank" class="hover:text-black transition-colors">LinkedIn</a>
+            <a href={site.github} target="_blank" class="hover:text-black transition-colors">GitHub</a>
         </div>
     </div>
 </footer>

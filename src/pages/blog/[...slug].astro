@@ -13,14 +13,17 @@ type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+const words = post.body ? post.body.trim().split(/\s+/).length : 0;
+const readTime = Math.max(1, Math.round(words / 200));
 ---
 
-<Layout title={post.data.title} description={post.data.title}>
+<Layout title={post.data.title} description={post.data.description ?? post.data.title}>
 	<article class="prose prose-zinc max-w-none text-base leading-7 text-zinc-800">
         <div class="mb-8">
             <a href="/blog" class="text-sm text-zinc-500 hover:text-zinc-800 transition-colors mb-4 inline-block font-medium">← Back to blog</a>
             <h1 class="text-3xl font-bold tracking-tight text-black mb-2">{post.data.title}</h1>
-            <div class="flex items-center text-sm text-zinc-500">
+            <div class="flex items-center text-sm text-zinc-500 gap-2">
                 <time datetime={post.data.date.toISOString()}>
                     {post.data.date.toLocaleDateString('en-us', {
                         year: 'numeric',
@@ -28,6 +31,8 @@ const { Content } = await render(post);
                         day: 'numeric',
                     })}
                 </time>
+                <span aria-hidden="true">·</span>
+                <span>{readTime} min read</span>
             </div>
         </div>
         

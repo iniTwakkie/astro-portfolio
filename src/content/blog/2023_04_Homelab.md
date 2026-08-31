@@ -1,5 +1,6 @@
 ---
 title: Homelab setup (Part1)
+description: An updated overview of my homelab — the low-power compute nodes, NAS storage, and remote access that keep my setup simple but powerful.
 date: 2023-04-03
 published: true
 ---
