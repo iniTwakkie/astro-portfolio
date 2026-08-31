@@ -4,7 +4,7 @@ shortDesc: Client project income and expense dashboards combining Xero and Insig
 date: 2021-01-01
 tech: Power BI, Xero, Insightly, SQL
 organisation: ExcluServ
-organisationUrl: https://www.excluserv.com/
+organisationUrl: https://www.linkedin.com/company/excluserv-ltd
 status: Completed
 published: true
 ---

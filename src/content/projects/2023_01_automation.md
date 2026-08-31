@@ -4,7 +4,7 @@ shortDesc: Real-time automations for clients and internal use — Teams status a
 date: 2023-01-01
 tech: Make.com, Fivetran, Xero, SQL, Microsoft Teams, Insightly, Azure SQL
 organisation: ExcluServ
-organisationUrl: https://www.excluserv.com/
+organisationUrl: https://www.linkedin.com/company/excluserv-ltd
 status: Ongoing
 published: true
 ---

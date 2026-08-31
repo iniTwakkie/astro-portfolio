@@ -4,7 +4,7 @@ shortDesc: Cashflow forecasting built on the SQL finance cube, letting clients p
 date: 2021-06-01
 tech: Power BI, Excel, PowerQuery, SQL
 organisation: ExcluServ
-organisationUrl: https://www.excluserv.com/
+organisationUrl: https://www.linkedin.com/company/excluserv-ltd
 status: Completed
 published: true
 ---

@@ -4,7 +4,7 @@ shortDesc: Core data model and management accounts underpinning all client repor
 date: 2020-09-01
 tech: Power BI, Xero, SQL Views, DAX, Acterys, Salesforce, Insightly
 organisation: ExcluServ
-organisationUrl: https://www.excluserv.com/
+organisationUrl: https://www.linkedin.com/company/excluserv-ltd
 status: Ongoing
 published: true
 ---
