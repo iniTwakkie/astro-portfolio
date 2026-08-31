@@ -18,19 +18,19 @@ const recentPosts = (await getCollection('blog'))
 <Layout title={site.title} description={site.description}>
     <section class="mb-14">
         <h1 class="text-3xl font-bold tracking-tight text-black mb-4">
-            Finance leader and builder.
+            Finance, data, and automation — for teams that want clarity.
         </h1>
         <p class="text-lg text-zinc-700 leading-relaxed mb-4">
-            I work at the intersection of <strong class="font-semibold text-black">finance, data, and software</strong> — building the reporting systems, models, and automations that help teams make better decisions, faster.
+            I help businesses modernise their finance operations — building the reporting systems, models, and automations that turn raw data into decisions.
         </p>
         <p class="text-base text-zinc-700 leading-relaxed mb-4">
-            I'm currently FP&amp;A Lead at Cambridge Spark, and I build tools that make finance easier to run — like <a href="/projects" class="text-black border-b border-zinc-400 hover:border-black transition-colors">CardCode and dplan</a>. I also advise companies on finance ops, analytics, and automation.
+            My consulting practice runs as <strong class="font-semibold text-black">danienell Limited, t/a DN Consulting</strong>. I'm currently FP&amp;A Lead at Cambridge Spark, and I build tools that make finance easier to run, like <a href="/projects" class="text-black border-b border-zinc-400 hover:border-black transition-colors">CardCode and dplan</a>.
         </p>
         <p class="text-base text-zinc-700 leading-relaxed mb-8">
-            Say hello at <a href="mailto:{site.email}" class="text-black border-b border-zinc-400 hover:border-black transition-colors">{site.email}</a> or find me on <a href={site.linkedin} target="_blank" rel="noreferrer" class="text-black border-b border-zinc-400 hover:border-black transition-colors">LinkedIn</a> and <a href={site.github} target="_blank" rel="noreferrer" class="text-black border-b border-zinc-400 hover:border-black transition-colors">GitHub</a>.
+            Want to work together? <a href="mailto:{site.email}" class="text-black border-b border-zinc-400 hover:border-black transition-colors">Get in touch</a> or find me on <a href={site.linkedin} target="_blank" rel="noreferrer" class="text-black border-b border-zinc-400 hover:border-black transition-colors">LinkedIn</a> and <a href={site.github} target="_blank" rel="noreferrer" class="text-black border-b border-zinc-400 hover:border-black transition-colors">GitHub</a>. Projects, writing, and things I find interesting live below.
         </p>
-        <a href="/Danie-Nell-Resume.pdf" download class="not-prose inline-flex items-center rounded-lg bg-black px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-700 transition-colors">
-            Download my résumé <span class="ml-2" aria-hidden="true">↓</span>
+        <a href={`mailto:${site.email}`} class="not-prose inline-flex items-center rounded-lg bg-black px-4 py-2.5 text-sm font-semibold text-white hover:bg-zinc-700 transition-colors">
+            Work with me <span class="ml-2" aria-hidden="true">→</span>
         </a>
     </section>
 
