@@ -6,7 +6,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { title, shortDesc, tech, codeLink, webHost, status } = project.data;
+const { title, shortDesc, tech, codeLink, webHost, organisation, organisationUrl, status } = project.data;
 ---
 
 <article class="group py-5 px-4 -mx-4 rounded-xl border border-transparent hover:border-zinc-200 hover:bg-white transition-colors">
@@ -24,6 +24,18 @@ const { title, shortDesc, tech, codeLink, webHost, status } = project.data;
     <p class="text-zinc-600 leading-relaxed mb-3">
         {shortDesc}
     </p>
+
+    {organisation && (
+        <p class="mb-2 text-xs font-medium text-zinc-500">
+            {organisationUrl ? (
+                <a href={organisationUrl} target="_blank" rel="noreferrer" class="hover:text-black transition-colors">
+                    {organisation} <span aria-hidden="true">↗</span>
+                </a>
+            ) : (
+                organisation
+            )}
+        </p>
+    )}
 
     <p class="mb-4 text-xs text-zinc-500 font-mono">{tech}</p>
 
