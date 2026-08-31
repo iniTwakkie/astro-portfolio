@@ -4,6 +4,7 @@ shortDesc: A financial operations platform that makes credit card transaction co
 date: 2026-08-18
 tech: React, TypeScript, Supabase, Cloudflare Workers
 webHost: https://cardcode.org
+organisation: Personal
 status: Building
 featured: true
 published: true
