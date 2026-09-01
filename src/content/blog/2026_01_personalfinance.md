@@ -14,7 +14,7 @@ The fix: run your household like a tiny business. [Xero Simple](https://www.xero
 - a balance sheet (what you own vs what you owe)
 - a real view of cashflow
 
-![Xero Personal Finance Dashboard](/images/xero-personal-finance-dashboard.png)
+![Xero Personal Finance Dashboard](../../assets/images/xero-personal-finance-dashboard.jpg)
 
 For about £7 + VAT a month, it's basically a full finance dashboard for your home.
 

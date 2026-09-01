@@ -1,5 +1,6 @@
 ---
 import { type CollectionEntry, getCollection, render } from 'astro:content';
+import { Picture } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
@@ -35,8 +36,21 @@ const readTime = Math.max(1, Math.round(words / 200));
                 <span>{readTime} min read</span>
             </div>
         </div>
+
+        {post.data.heroImage && (
+            <Picture
+                src={post.data.heroImage}
+                alt={post.data.heroImageAlt ?? ''}
+                formats={['avif', 'webp']}
+                widths={[640, 960, 1280]}
+                sizes="(max-width: 672px) calc(100vw - 2rem), 640px"
+                loading="eager"
+                fetchpriority="high"
+                class="mb-8 aspect-video w-full rounded-xl object-cover shadow-sm"
+            />
+        )}
         
-		<div class="prose-headings:font-bold prose-headings:text-black prose-a:text-black prose-a:underline prose-a:decoration-zinc-400 hover:prose-a:decoration-black prose-img:rounded-lg">
+		<div class="article-content prose-headings:font-bold prose-headings:text-black prose-a:text-black prose-a:underline prose-a:decoration-zinc-400 hover:prose-a:decoration-black prose-img:h-auto prose-img:w-full prose-img:rounded-xl prose-img:shadow-sm">
 		    <Content />
         </div>
 	</article>

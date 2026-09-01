@@ -17,7 +17,7 @@ Working from home (and building side projects) pushed me into running my own hom
 
 ## Compute: 4 nodes
 
-![Dell OptiPlex Micro Stack](/images/dell-micro-stack.jpg)
+![Dell OptiPlex Micro Stack](../../assets/images/dell-micro-stack.jpg)
 
 Four Dell OptiPlex 7040 Micro nodes (i7-6700T, 32GB RAM) — small, quiet, low power, and reliable.
 
