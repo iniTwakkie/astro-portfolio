@@ -4,8 +4,8 @@ description: "A tour of my homelab — a handful of low-power Proxmox nodes acro
 date: 2026-09-03
 tags: ["homelab", "proxmox", "unifi", "tailscale", "docker", "self-hosting", "home assistant", "ai"]
 published: true
-heroImage: ../../assets/images/dell-micro-stack.jpg
-heroImageAlt: A small stack of compact desktop PCs
+heroImage: ../../assets/images/homelab-network.jpg
+heroImageAlt: A flat illustration of a homelab — a cloud with a padlock at the top, a central router, and three mini-PC nodes on a shelf connected by a mesh network
 ---
 
 My homelab started in 2023 with a few low-power boxes. It's grown since — but it hasn't changed philosophy. It's still built on small mini PCs instead of rack-mount enterprise hardware. What's changed is how much the fleet now does: my own UniFi network with real VLANs, a handful of Proxmox nodes spread across two continents, a mesh VPN connecting all of it, a pile of self-hosted apps, and an AI layer that runs my coding agents for me.
