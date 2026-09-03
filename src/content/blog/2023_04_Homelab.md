@@ -49,17 +49,18 @@ Anything that genuinely needs to be reachable from the internet goes through a *
 
 One Docker VM runs the bulk of my services. The standouts:
 
-| Category | What it does |
+| App | What it does |
 | --- | --- |
-| **Dashboard** | landing page that ties the lab together |
-| **Automation** | workflow automation between services |
-| **Self-hosted Git** | private code hosting |
-| **Data pipelines** | scheduled orchestration for my personal and finance data |
-| **Notes & sync** | real-time sync of my notes vaults |
-| **Notifications** | self-hosted push notifications |
-| **Monitoring** | uptime and resource monitoring across the fleet |
-| **Docs** | internal documentation |
-| **Small utilities** | the everyday tools |
+| **Homarr** | dashboard landing page for the lab |
+| **n8n** | workflow automation between services |
+| **Forgejo** | self-hosted Git |
+| **Prefect** | scheduled data pipelines for my personal and finance data |
+| **Syncthing** | real-time sync of my notes vaults |
+| **ntfy** | self-hosted push notifications |
+| **Uptime Kuma** | uptime monitoring across the fleet |
+| **Beszel** | lightweight resource monitoring |
+| **Wiki.js** | internal documentation |
+| **IT-Tools** | the everyday utilities |
 
 A cloud VM hosts the database that the pipelines feed into, plus the voice server.
 
@@ -67,7 +68,7 @@ A cloud VM hosts the database that the pipelines feed into, plus the voice serve
 
 This is the part that's grown the most. I've built a small AI layer across the fleet:
 
-**Coding agents from anywhere.** I run self-hosted coding-agent servers that let me work on real infrastructure from my phone. They carry the usual provider CLIs — Claude Code, Codex, OpenCode Go — all authenticated locally, so I can delegate work no matter where I am.
+**Coding agents from anywhere.** The heart of this is **T3 Code** — a self-hosted coding server that powers an iOS app. It runs on a couple of machines on the tailnet, so there's always one reachable and the app can talk to whichever is available. That means I can delegate coding work to my real infrastructure from my phone, wherever I am. Both instances carry the usual provider CLIs — Claude Code, Codex, OpenCode Go — all authenticated locally.
 
 **Persistent remote-control agents.** Claude Code and Codex run as always-on services across a few nodes, so sessions survive reboots and disconnects. Effectively a set of on-call coding agents I can call on at any time.
 
