@@ -1,123 +1,90 @@
 ---
 title: "My Homelab in 2026: Nodes, Network, Apps, and AI"
-description: "A tour of my homelab — four Proxmox nodes across two continents, a UniFi network with proper VLANs, the self-hosted apps I run, and the AI infrastructure I've built on top."
+description: "A tour of my homelab — a handful of low-power Proxmox nodes across two continents, a UniFi network, the self-hosted apps I run, and the AI infrastructure I've built on top."
 date: 2026-09-03
 tags: ["homelab", "proxmox", "unifi", "tailscale", "docker", "self-hosting", "home assistant", "ai"]
 published: true
 heroImage: ../../assets/images/dell-micro-stack.jpg
-heroImageAlt: Three Dell OptiPlex Micro nodes stacked on a shelf
+heroImageAlt: A small stack of compact desktop PCs
 ---
 
-My homelab started in 2023 with a few low-power boxes. It's grown since — but it hasn't changed philosophy. It's still built on small Dell OptiPlex micros instead of rack-mount enterprise hardware. What's changed is how much the fleet now does: my own UniFi network with real VLANs, four Proxmox nodes spread across two continents, a mesh VPN connecting all of it, a pile of Docker services, and an AI layer that runs my coding agents for me.
+My homelab started in 2023 with a few low-power boxes. It's grown since — but it hasn't changed philosophy. It's still built on small mini PCs instead of rack-mount enterprise hardware. What's changed is how much the fleet now does: my own UniFi network with real VLANs, a handful of Proxmox nodes spread across two continents, a mesh VPN connecting all of it, a pile of self-hosted apps, and an AI layer that runs my coding agents for me.
 
 This is the 2026 overview.
 
 ## Approach
 
 - Small, low-power compute nodes instead of one big server
-- Four Proxmox nodes across the UK and South Africa
+- A few Proxmox nodes across the UK and South Africa
 - One private mesh network (Tailscale) covering every machine
 - A UniFi network at home with segmented VLANs
 - Cloudflare Tunnel for the small set of services that need to be public
-- Google Drive as the backup edge for the Proxmox nodes
+- Cloud storage as the backup edge
 
-## Compute: four Proxmox nodes
+## Compute: a handful of Proxmox nodes
 
-All four run Proxmox VE 9. All four are Dell OptiPlex micros — small, quiet, low-power, reliable.
+Nothing exotic — every node is a low-power desktop mini PC running Proxmox VE. They're cheap, quiet, and sip power, and there are enough of them that losing any one box isn't an incident.
 
-| Node | Location | Hardware | Job |
-| --- | --- | --- | --- |
-| `pve1host-uk` | UK, with me | Dell OptiPlex 7040 · i7-6700T · 32 GB | Main homelab: Docker VM, Home Assistant, Syncthing, Scrypted |
-| `pve2host-uk` | UK, with me | Dell OptiPlex 7040 · i7-6700T · 32 GB | Coding VM + Windows 11 VM |
-| `pve4host-sa` | Jeffreys Bay, parents | Dell OptiPlex 3050 · i7-6700 · 16 GB | Parents' Home Assistant + Docker VM, Tailscale exit node |
-| `pve3host-sa` | Bloemfontein, at Johan | Dell OptiPlex 3050 · i7-6700 · 24 GB | DStv Tailscale exit node (currently offline) |
-
-### pve1host-uk — the main node
-
-Hosts the Docker workhorse `pve1docker`, a Ubuntu VM that runs most of my containerised services and acts as the primary controller for the whole fleet. Also runs the primary Home Assistant, a Syncthing container for my Obsidian vaults, and Scrypted for camera/HomeKit streaming.
-
-### pve2host-uk — the coding node
-
-Hosts `pve2code`, my Ubuntu coding VM (T3 Code server, local Postgres for app development) and a Windows 11 VM that I keep powered off to save energy.
-
-### pve4host-sa — the parents' node
-
-Runs my parents' Home Assistant, a small Docker VM that hosts the family business vault (shared with them over Syncthing), and advertises itself as a Tailscale exit node — which is how I watch regional content and keep a safe route home from anywhere.
-
-### Around the fleet
-
-- **Hetzner cloud VM** — Ubuntu 24.04 with PostgreSQL (the Garmin + finance data warehouse) and a Mumble voice server.
-- **Oracle cloud VM** — currently unreachable; the SSH access is being recovered.
-- **HP ProLiant MicroServer** at my parents — the NAS/storage box, running Syncthing mirrors of family laptops with a weekly Google Drive backup and SMART disk monitoring.
-- **GoFlix** — a managed Plex/media account on Ultra.cc, with Deluge and automated media cleanups.
-- **Raspberry Pi** — an old tailnet member, kept on the weekly maintenance rotation.
+- **The main node at home.** Hosts the Docker workhorse — a VM running most of my containerised services and the control point for the whole fleet — plus my home automation instance and file sync.
+- **The coding node at home.** Dev VMs and app servers, including my coding-agent setup and a local database for development.
+- **A node at family in South Africa.** Runs their home automation and a small Docker VM, and acts as a Tailscale exit node — a stable route home from anywhere.
+- **A couple of small cloud VMs** for the things that need a fixed public presence (a database and a voice server).
+- **An old NAS at my parents' place** for family file storage and backups.
 
 ## Network: UniFi + Tailscale + Cloudflare
 
 ### UniFi at home
 
-My own network is UniFi, with a **UDM Pro** as the control centre. Right now it manages about 46 clients across a USW Lite 8 PoE switch, a U6 Enterprise access point, and a U6 Lite on the stairs. Two WAN connections for failover, a WireGuard network for remote users, and a single place to see every device and block what shouldn't be there.
+My network is UniFi, with a **UDM Pro** as the control centre. A couple of access points cover the house, and everything — Wi-Fi, smart-home devices, cameras, guests, and the homelab itself — sits on its own VLAN so devices only talk to what they actually need to. Two WAN connections give me automatic failover, and there's a single place to see every device and block what shouldn't be there.
 
-The network is split into VLANs so devices only talk to what they need to:
+### Tailscale as the backbone
 
-| Network | VLAN | Subnet | Purpose |
-| --- | ---: | --- | --- |
-| VL1 Core | untagged | `192.168.1.1/24` | main trusted devices |
-| VL2 Wifi | 2 | `192.168.2.1/24` | wireless clients |
-| VL3 IOT | 3 | `192.168.3.1/24` | smart-home devices, rate-limited |
-| VL4 Cameras | 4 | `192.168.4.1/24` | camera segment |
-| VL50 Guests | 50 | `192.168.50.1/24` | guest access |
-| VL100 Homelab | 100 | `192.168.100.1/25` | server and homelab segment |
-
-The clever bit is the way the whole fleet is glued together: **Tailscale**. Every node — Proxmox hosts, VMs, cloud servers, my laptop, my phone — is on one private tailnet. Services bind to tailnet addresses, not the public internet, and the exit nodes in South Africa give family members a stable path home (and me a reliable way to reach everything from anywhere).
+The clever bit is how the whole fleet is glued together: **Tailscale**. Every node — the Proxmox hosts, VMs, cloud servers, my laptop, my phone — lives on one private mesh network. Services bind to tailnet addresses rather than the public internet, and the exit node in South Africa gives me (and family) a reliable way to reach everything from anywhere.
 
 ### Cloudflare Tunnel for the public side
 
-Anything that genuinely needs to be reachable from the internet goes through a **Cloudflare Tunnel** — so no ports are opened on the home router. Public hostnames like `ntfy.danienell.com`, `family.danienell.com` (my genealogy platform), `n8n.danienell.com`, and `git.danienell.com` terminate on the tunnel and reach Docker containers internally. Cloudflare Access sits in front of the sensitive ones.
+Anything that genuinely needs to be reachable from the internet goes through a **Cloudflare Tunnel**, so no ports are opened on the home router. Public hostnames terminate on the tunnel and reach the apps internally, with Cloudflare Access in front of anything sensitive.
 
 ## Apps running
 
-`pve1docker` runs the bulk of my containers under `/srv/docker`. The standouts:
+One Docker VM runs the bulk of my services. The standouts:
 
-| App | What it does |
+| Category | What it does |
 | --- | --- |
-| **Homarr** | dashboard landing page for the lab |
-| **n8n** | workflow automation |
-| **Forgejo** | self-hosted Git |
-| **Prefect** | data orchestration — the Xero and Garmin ETL pipelines |
-| **Gramps Web** | family genealogy, behind Cloudflare Access |
-| **ntfy** | self-hosted push notifications, 30-day archive |
-| **Uptime Kuma** | uptime monitoring across the fleet |
-| **Beszel** | lightweight resource monitoring |
-| **Syncthing** | real-time sync for my Obsidian vaults |
-| **13ft**, **IT-Tools** | the small utilities |
-| **wiki.js**, **Bookstack** | documentation |
-| **Homebridge** | (retired — Home Assistant replaced it) |
+| **Dashboard** | landing page that ties the lab together |
+| **Automation** | workflow automation between services |
+| **Self-hosted Git** | private code hosting |
+| **Data pipelines** | scheduled orchestration for my personal and finance data |
+| **Notes & sync** | real-time sync of my notes vaults |
+| **Notifications** | self-hosted push notifications |
+| **Monitoring** | uptime and resource monitoring across the fleet |
+| **Docs** | internal documentation |
+| **Small utilities** | the everyday tools |
 
-On the cloud side, Hetzner runs the PostgreSQL data warehouse that Prefect feeds — Garmin health data, activity telemetry, and the Xero finance pipeline — plus the Mumble server. The GoFlix media account handles Plex and the download pipeline.
+A cloud VM hosts the database that the pipelines feed into, plus the voice server.
 
 ## AI infrastructure
 
 This is the part that's grown the most. I've built a small AI layer across the fleet:
 
-**T3 Code servers.** I run two T3 Code instances (on `pve1docker` and `pve2code`), each bound to a tailnet-only address on port 3773. That's what powers the T3 iOS app — it lets me work on code from my phone against real infrastructure. Both instances carry the provider CLIs: Claude Code, Codex, and OpenCode Go, all authenticated locally.
+**Coding agents from anywhere.** I run self-hosted coding-agent servers that let me work on real infrastructure from my phone. They carry the usual provider CLIs — Claude Code, Codex, OpenCode Go — all authenticated locally, so I can delegate work no matter where I am.
 
-**Persistent remote-control agents.** Claude Code runs as a `systemd` + tmux service on several nodes so sessions survive reboots and SSH disconnects. The fleet also runs standalone Codex with two-minute watchdog daemons on the controller and the Hetzner VM — effectively always-on coding agents I can call on.
+**Persistent remote-control agents.** Claude Code and Codex run as always-on services across a few nodes, so sessions survive reboots and disconnects. Effectively a set of on-call coding agents I can call on at any time.
 
-**A contained agent for family.** On the parents' node, my father runs his own Claude Code session against a shared Obsidian vault — as a dedicated `nn-agent` user, locked down with filesystem ACLs and iptables rules so it can only reach that vault, never the rest of the network.
+**A contained agent for family.** On the South Africa node there's a locked-down agent that works only inside a shared family notes vault — scoped by filesystem and firewall rules so it can never reach the rest of the network.
 
-**An AI routing policy.** Instead of one model doing everything, I route work deliberately: Codex orchestrates and owns the final answer; OpenCode Go handles cheap bulk work; Claude Sonnet does substantial coding; Opus is the escalation model for high-risk changes. Everything is auto-updated every three days.
+**An AI routing policy.** Instead of one model doing everything, I route work deliberately: one agent orchestrates and owns the final answer; a cheaper model handles bulk work; and harder models are the escalation path for high-risk changes. Everything auto-updates on a schedule.
 
 ## Storage and backup
 
-- Every Proxmox VM is snapshotted weekly and pushed to Google Drive via rclone (keep-last 3).
-- The HP MicroServer at my parents mirrors the family laptops to disk and pushes the `Storage` share to Google Drive every Sunday.
-- My Obsidian vaults sync live through Syncthing, with a version-controlled weekly Git backup.
-- SMART monitoring runs continuously on all three MicroServer disks.
+- Every VM is snapshotted weekly and pushed to cloud storage.
+- The NAS at my parents' place mirrors the family laptops and pushes a weekly copy to the cloud.
+- My notes vaults sync live, with a version-controlled weekly backup.
+- Disk health is monitored continuously on the storage boxes.
 
 ## Home automation
 
-Home Assistant runs on its own HAOS VM, and it's become the thing the family actually notices. Zigbee2MQTT with an SMLIGHT SLZB-06Mu coordinator handles the Zigbee devices; Matter handles the SONOFF air-quality monitors and Meross plugs; and a HomeKit bridge selectively exposes the safe stuff to Apple Home — the air conditioners, the tumble dryer, the smoke/CO alarm, the air purifier, and the kitchen and bedroom TVs.
+Home Assistant runs on its own VM and has become the thing the family actually notices. A Zigbee coordinator handles the wireless sensors and switches, Matter covers the newer smart-home gear, and a HomeKit bridge selectively exposes the useful stuff to Apple Home — the climate control, the appliances, the sensors, and the TVs.
 
 ## Why it works
 
@@ -126,5 +93,5 @@ The same reasons as 2023, just scaled up:
 - **Low-power nodes, not one big server** — reliable without enterprise hardware or enterprise power bills.
 - **A mesh VPN as the backbone** — Tailscale makes remote access a solved problem, and exit nodes turn family machines into part of my network.
 - **Cloudflare as the edge** — public services without poking holes in the home firewall.
-- **Segmented networking** — VLANs keep IoT, cameras, guests, and servers apart, and it's all manageable from one UniFi controller.
+- **Segmented networking** — VLANs keep IoT, cameras, guests, and servers apart, manageable from one controller.
 - **AI as infrastructure** — the agents, watchdogs, and routing policy have turned my homelab into a place that actively builds things, not just hosts them.
