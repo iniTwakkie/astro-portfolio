@@ -93,17 +93,17 @@ In my setup, I treat all model providers as interchangeable commodities. **The i
 
 ```mermaid
 flowchart LR
-    subgraph Sovereign[Sovereign Local Host (Proxmox / Blackbox Vault)]
-        Data[Markdown Notes, Financial Data, Health Logs, Project Hubs]
-        GW[Context Gateway & Local Embeddings]
+    subgraph Sovereign["Sovereign Local Host (Proxmox / Blackbox Vault)"]
+        Data["Markdown Notes, Financial Data, Health Logs, Project Hubs"]
+        GW["Context Gateway & Local Embeddings"]
         Data <--> GW
     end
     
-    subgraph Interchangeable[Interchangeable Model Layer]
-        OAI[OpenAI / GPT-o]
-        ANT[Anthropic / Claude]
-        GOO[Google / Gemini]
-        LOC[Local Quantized Models]
+    subgraph Interchangeable["Interchangeable Model Layer"]
+        OAI["OpenAI / GPT-o"]
+        ANT["Anthropic / Claude"]
+        GOO["Google / Gemini"]
+        LOC["Local Quantized Models"]
     end
     
     GW <-->|Standard Context Pack| OAI
