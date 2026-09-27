@@ -1,0 +1,63 @@
+---
+import Layout from '../layouts/Layout.astro';
+import site from '../data/site.json';
+
+const updated = '27 September 2026';
+---
+
+<Layout title={`Privacy policy | ${site.name}`} description="How danienell.com and Danie Nell's private Blackbox tool handle personal data.">
+	<article class="prose prose-zinc max-w-none text-base leading-7 text-zinc-800 prose-headings:font-bold prose-headings:text-black prose-a:text-black prose-a:underline prose-a:decoration-zinc-400 hover:prose-a:decoration-black">
+		<h1>Privacy policy</h1>
+		<p class="text-sm text-zinc-500">Last updated {updated}</p>
+
+		<p>
+			This policy covers this website and <strong>Blackbox</strong>, a private tool I run for my own use.
+			I am Danie Nell, the data controller, and you can reach me at <a href={`mailto:${site.email}`}>{site.email}</a>.
+		</p>
+
+		<h2>This website</h2>
+		<p>
+			danienell.com is a static site. It sets no cookies, runs no analytics or advertising trackers,
+			and has no forms or accounts. It is served through Cloudflare, which processes standard request data
+			(such as your IP address and browser details) to deliver the site and protect it from abuse.
+			See <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noreferrer">Cloudflare's privacy policy</a>.
+		</p>
+		<p>If you email me, I use your message and address only to reply and keep a record of our conversation.</p>
+
+		<h2>Blackbox (Google sign-in)</h2>
+		<p>
+			Blackbox is a personal assistant that I use only with my own Google accounts. It is not offered to the public,
+			and nobody else can sign in to it.
+		</p>
+		<p>With my permission, it reads and manages data in those accounts through Google's APIs:</p>
+		<ul>
+			<li>Gmail: reading, organising and drafting email</li>
+			<li>Google Calendar: reading and updating events</li>
+			<li>Google Contacts: read-only</li>
+			<li>Google Drive: finding, filing and creating documents</li>
+			<li>Google Fit: read-only activity and body measurements</li>
+		</ul>
+		<p>
+			This data is stored on servers I own and control, and is used only to provide features to me,
+			such as search, summaries, reminders and filing. It is not sold, not used for advertising, and not shared
+			with anyone except the service providers needed to run those features for me.
+		</p>
+		<p>
+			Blackbox's use of information received from Google APIs follows the
+			<a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noreferrer">Google API Services User Data Policy</a>,
+			including the Limited Use requirements.
+		</p>
+		<p>
+			Access can be withdrawn at any time from
+			<a href="https://myaccount.google.com/permissions" target="_blank" rel="noreferrer">Google Account permissions</a>.
+			When access is removed, the stored credentials stop working and synced data is deleted on request.
+		</p>
+
+		<h2>Your rights</h2>
+		<p>
+			Under UK data protection law you can ask for a copy of any personal data I hold about you, and ask me to correct
+			or delete it. Email <a href={`mailto:${site.email}`}>{site.email}</a>. You can also complain to the
+			<a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noreferrer">Information Commissioner's Office</a>.
+		</p>
+	</article>
+</Layout>
